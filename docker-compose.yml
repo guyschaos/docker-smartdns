@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  smartdns:
+    image: guyschaos/smart-dns
+    volumes:
+      - ./smartdns:/smartdns
+      - ./config.conf:/config.conf
+    network_mode: host
+  adguard:
+    image: adguard/adguardhome:latest
+    volumes:
+      - ./conf:/opt/adguardhome/conf
+      - ./work:/opt/adguardhome/work
+    depends_on:
+      - smartdns
+    network_mode: host
